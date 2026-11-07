@@ -1,0 +1,255 @@
+
+/* ==========================================
+   AWS INFRA STUDIO
+   Forest Green + Warm Cream + Copper
+========================================== */
+
+:root {
+    --bg-main: #F0E8D8;
+    --bg-sidebar: #2c3e24;
+    --bg-card: #F8F3EA;
+    --bg-elevated: #EAE2D4;
+
+    --accent: #B87C4C;
+    --accent-secondary: #D9BA97;
+
+    --text-primary: #292B25;
+    --text-secondary: #77766B;
+
+    --border: #DDD3C2;
+
+    --success: #398443;
+    --warning: #D99A24;
+    --danger: #B85B43;
+}
+
+/* ==========================================
+   MAIN APPLICATION
+========================================== */
+
+.stApp,
+[data-testid="stAppViewContainer"] {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+}
+
+[data-testid="stHeader"] {
+    background: transparent;
+}
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+section[data-testid="stSidebar"] {
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid #526149;
+}
+
+section[data-testid="stSidebar"] > div {
+    background-color: var(--bg-sidebar);
+}
+
+/* Sidebar text */
+
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] span {
+    color: #F8F3EA;
+}
+
+/* Sidebar navigation links */
+
+section[data-testid="stSidebar"] a {
+    color: #F8F3EA !important;
+    text-decoration: none;
+}
+
+section[data-testid="stSidebar"] a:hover {
+    color: var(--accent-secondary) !important;
+}
+
+/* Sidebar divider */
+
+section[data-testid="stSidebar"] hr {
+    border-color: #66735D;
+}
+
+/* ==========================================
+   HEADINGS AND TEXT
+========================================== */
+
+h1, h2, h3, h4, h5 {
+    color: var(--text-primary) !important;
+}
+
+p, label {
+    color: var(--text-primary);
+}
+
+[data-testid="stCaptionContainer"] {
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   METRIC CARDS
+========================================== */
+
+[data-testid="stMetric"] {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--text-secondary) !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: var(--text-primary) !important;
+}
+
+[data-testid="stMetricDelta"] {
+    color: var(--success) !important;
+}
+
+/* ==========================================
+   CONTAINERS / SERVICE CARDS
+========================================== */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: var(--bg-card);
+    border-color: var(--border) !important;
+    border-radius: 10px;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.stButton > button {
+    background-color: var(--accent);
+    color: #FFFFFF;
+    border: 1px solid var(--accent);
+    border-radius: 7px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.stButton > button:hover {
+    background-color: #A66A3C;
+    color: #FFFFFF;
+    border-color: #A66A3C;
+}
+
+.stButton > button:focus {
+    border-color: var(--accent);
+    color: #FFFFFF;
+    box-shadow: 0 0 0 2px #B87C4C40;
+}
+
+/* ==========================================
+   PAGE LINKS
+========================================== */
+
+.stPageLink a {
+    color: var(--accent) !important;
+    font-weight: 600;
+}
+
+.stPageLink a:hover {
+    color: #8F5B35 !important;
+}
+
+/* ==========================================
+   INPUT FIELDS
+========================================== */
+
+.stTextInput input,
+.stNumberInput input,
+.stTextArea textarea {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+}
+
+.stTextInput input:focus,
+.stNumberInput input:focus,
+.stTextArea textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+}
+
+/* ==========================================
+   SELECT BOX
+========================================== */
+
+[data-baseweb="select"] > div {
+    background-color: var(--bg-card);
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   RADIO BUTTONS
+========================================== */
+
+.stRadio label {
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   SUCCESS / WARNING / ERROR
+========================================== */
+
+[data-testid="stAlert"] {
+    border-radius: 8px;
+}
+
+[data-testid="stAlert"][kind="success"] {
+    background-color: #E2EBDD;
+    border-color: var(--success);
+}
+
+[data-testid="stAlert"][kind="warning"] {
+    background-color: #F5EBD3;
+    border-color: var(--warning);
+}
+
+[data-testid="stAlert"][kind="error"] {
+    background-color: #F3DFD8;
+    border-color: var(--danger);
+}
+
+/* ==========================================
+   TABLES
+========================================== */
+
+[data-testid="stDataFrame"] {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ==========================================
+   DIVIDERS
+========================================== */
+
+hr {
+    border-color: var(--border);
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+    [data-testid="stMetric"] {
+        padding: 12px;
+    }
+}
