@@ -1,5 +1,6 @@
 
 import streamlit as st
+from components.sidebar import sidebar_fun
 
 # Page configuration
 st.set_page_config(
@@ -13,10 +14,7 @@ st.set_page_config(
 with open("assets/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-
-# Sidebar
 with st.sidebar:
-
     st.title("☁️ AWS Dashboard")
 
     st.markdown("---")
@@ -28,6 +26,7 @@ with st.sidebar:
     st.page_link("pages/5_Lambda.py", label="Lambda", icon="⚡")
     st.page_link("pages/6_API_Gateway.py", label="API Gateway", icon="🌐")
     st.page_link("pages/7_Account_Info.py", label="Account Info", icon="👤")
+
 
 
 # Main Header

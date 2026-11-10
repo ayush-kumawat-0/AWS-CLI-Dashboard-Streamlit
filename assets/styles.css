@@ -5,18 +5,18 @@
 ========================================== */
 
 :root {
-    --bg-main: #F0E8D8;
+    --bg-main: #ECE7DC;
     --bg-sidebar: #2c3e24;
     --bg-card: #F8F3EA;
-    --bg-elevated: #EAE2D4;
+    --bg-elevated: #F7F1E7;
 
-    --accent: #B87C4C;
+    --accent: #bca25f86;
     --accent-secondary: #D9BA97;
 
     --text-primary: #292B25;
     --text-secondary: #77766B;
 
-    --border: #DDD3C2;
+    --border: #D6C9B5;
 
     --success: #398443;
     --warning: #D99A24;
@@ -27,6 +27,8 @@
    MAIN APPLICATION
 ========================================== */
 
+
+
 .stApp,
 [data-testid="stAppViewContainer"] {
     background-color: var(--bg-main);
@@ -35,6 +37,19 @@
 
 [data-testid="stHeader"] {
     background: transparent;
+}
+
+[data-testid="stAppViewContainer"] .main .block-container {
+    max-width: 1440px;
+    padding: 2.5rem 3.5rem 3rem;
+}
+
+/* Keep the dashboard sections visually separated without changing layout. */
+
+[data-testid="stAppViewContainer"] .main hr {
+    margin: 2rem 0;
+    border-color: var(--border);
+    opacity: 0.8;
 }
 
 /* ==========================================
@@ -48,6 +63,10 @@ section[data-testid="stSidebar"] {
 
 section[data-testid="stSidebar"] > div {
     background-color: var(--bg-sidebar);
+}
+
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: 0.65rem;
 }
 
 /* Sidebar text */
@@ -72,6 +91,16 @@ section[data-testid="stSidebar"] a:hover {
     color: var(--accent-secondary) !important;
 }
 
+section[data-testid="stSidebar"] a {
+    padding: 0.55rem 0.75rem;
+    border-radius: 7px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+section[data-testid="stSidebar"] a:hover {
+    background-color: rgba(217, 186, 151, 0.14);
+}
+
 /* Sidebar divider */
 
 section[data-testid="stSidebar"] hr {
@@ -84,6 +113,14 @@ section[data-testid="stSidebar"] hr {
 
 h1, h2, h3, h4, h5 {
     color: var(--text-primary) !important;
+}
+
+h1 {
+    letter-spacing: -0.02em;
+}
+
+h2, h3 {
+    letter-spacing: -0.01em;
 }
 
 p, label {
@@ -101,8 +138,18 @@ p, label {
 [data-testid="stMetric"] {
     background-color: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
+    border-radius: 12px;
+    padding: 1.15rem 1.25rem;
+    min-height: 7.25rem;
+    box-shadow: 0 3px 10px rgba(67, 57, 42, 0.08);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+[data-testid="stMetric"]:hover {
+    border-color: var(--accent-secondary);
+    box-shadow: 0 7px 18px rgba(67, 57, 42, 0.13);
+    transform: translateY(-2px);
 }
 
 [data-testid="stMetricLabel"] {
@@ -122,9 +169,46 @@ p, label {
 ========================================== */
 
 [data-testid="stVerticalBlockBorderWrapper"] {
-    background-color: var(--bg-card);
+    background: linear-gradient(145deg, #FBF7EF 0%, var(--bg-elevated) 100%) !important;
     border-color: var(--border) !important;
+    border-radius: 12px;
+    min-height: 10.5rem;
+    padding: 0.25rem;
+    box-shadow: 0 4px 12px rgba(67, 57, 42, 0.09);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] > div,
+[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+    background: transparent !important;
     border-radius: 10px;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+    padding: 0.8rem 0.9rem 0.9rem;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    background: linear-gradient(145deg, #FFF9EF 0%, #F5EBDD 100%) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 9px 22px rgba(67, 57, 42, 0.15);
+    transform: translateY(-2px);
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] h3 {
+    margin-top: 0.25rem;
+    margin-bottom: 0.35rem;
+    color: var(--bg-sidebar) !important;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] .stPageLink {
+    margin-top: 0.75rem;
 }
 
 /* ==========================================
@@ -135,15 +219,20 @@ p, label {
     background-color: var(--accent);
     color: #FFFFFF;
     border: 1px solid var(--accent);
-    border-radius: 7px;
+    border-radius: 8px;
+    min-height: 2.75rem;
     font-weight: 600;
-    transition: 0.2s ease;
+    box-shadow: 0 3px 8px rgba(112, 73, 42, 0.18);
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+        box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .stButton > button:hover {
-    background-color: #A66A3C;
+    background-color: #b0825e;
     color: #FFFFFF;
     border-color: #A66A3C;
+    box-shadow: 0 6px 14px rgba(112, 73, 42, 0.24);
+    transform: translateY(-1px);
 }
 
 .stButton > button:focus {
@@ -209,6 +298,7 @@ p, label {
 
 [data-testid="stAlert"] {
     border-radius: 8px;
+    box-shadow: 0 3px 9px rgba(67, 57, 42, 0.08);
 }
 
 [data-testid="stAlert"][kind="success"] {
@@ -249,7 +339,98 @@ hr {
 ========================================== */
 
 @media (max-width: 768px) {
-    [data-testid="stMetric"] {
-        padding: 12px;
+    [data-testid="stAppViewContainer"] .main .block-container {
+        padding: 1.5rem 1rem 2rem;
     }
+
+    [data-testid="stMetric"] {
+        min-height: auto;
+        padding: 0.85rem;
+    }
+
+    [data-testid="stVerticalBlockBorderWrapper"] {
+        min-height: auto;
+    }
+}
+
+
+
+
+
+
+
+/* =================================
+   EC2 TABLE
+================================= */
+
+/* Table background */
+[data-testid="stDataFrame"] {
+    background-color: #FFFCF5 !important;
+    border: 1px solid #DED6C7;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Table text */
+[data-testid="stDataFrame"] [data-testid="glideDataEditor"] {
+    color: #302F29 !important;
+}
+
+
+/* =================================
+   SELECTBOX
+================================= */
+
+/* Selectbox container */
+[data-baseweb="select"] > div {
+    background-color: #FFFCF5 !important;
+    border-color: #DED6C7 !important;
+}
+
+/* Selected value */
+[data-baseweb="select"] div,
+[data-baseweb="select"] span {
+    color: #302F29 !important;
+}
+
+/* Dropdown menu */
+[data-baseweb="popover"] {
+    background-color: #FFFCF5 !important;
+}
+
+[data-baseweb="menu"] {
+    background-color: #FFFCF5 !important;
+}
+
+/* Dropdown options */
+[data-baseweb="menu"] [role="option"] {
+    color: #302F29 !important;
+}
+
+[data-baseweb="menu"] [role="option"]:hover {
+    background-color: #E8E2D5 !important;
+}
+
+
+/* =================================
+   SEARCH INPUT
+================================= */
+
+/* Search input background */
+.stTextInput input {
+    background-color: #FFFCF5 !important;
+    color: #302F29 !important;
+    border: 1px solid #DED6C7 !important;
+}
+
+/* Placeholder text */
+.stTextInput input::placeholder {
+    color: #999487 !important;
+    opacity: 1 !important;
+}
+
+/* Search input focus */
+.stTextInput input:focus {
+    border-color: #A96F4F !important;
+    box-shadow: 0 0 0 1px #A96F4F !important;
 }
