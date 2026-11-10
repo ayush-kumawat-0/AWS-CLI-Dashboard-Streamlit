@@ -1,37 +1,116 @@
 
-/* ==========================================
-   AWS INFRA STUDIO
-   Forest Green + Warm Cream + Copper
-========================================== */
+/* =====================================================
+   AWS CLOUD DASHBOARD
+   Charcoal + Deep Teal + Warm Sand + Pale Mint
+===================================================== */
+
+
+/* =====================================================
+   1. GLOBAL COLOUR VARIABLES
+===================================================== */
 
 :root {
-    --bg-main: #ECE7DC;
-    --bg-sidebar: #2c3e24;
-    --bg-card: #F8F3EA;
-    --bg-elevated: #F7F1E7;
+    color-scheme: light;
 
-    --accent: #bca25f86;
-    --accent-secondary: #D9BA97;
+    /* Backgrounds */
+    --bg-main: #F4F6F3;
+    --bg-card: #FFFFFF;
+    --bg-input: #F7FAF8;
+    --bg-hover: #D1E9E2;
+    --bg-sidebar: #2C3531;
+    --bg-elevated: #EDF3EF;
 
-    --text-primary: #292B25;
-    --text-secondary: #77766B;
+    /* Primary accent */
+    --accent: #116466;
+    --accent-light: #D1E9E2;
+    --accent-dark: #0D5153;
+    --accent-tint: rgba(17, 100, 102, 0.10);
+    --accent-glow: rgba(17, 100, 102, 0.22);
 
-    --border: #D6C9B5;
+    --gradient: linear-gradient(
+        135deg,
+        #116466 0%,
+        #0D5153 100%
+    );
 
-    --success: #398443;
-    --warning: #D99A24;
-    --danger: #B85B43;
+    /* Secondary accents */
+    --sand: #D9B08C;
+    --peach: #FFCB9A;
+    --mint: #D1E9E2;
+
+    /* Typography */
+    --text-primary: #2C3531;
+    --text-secondary: #63716B;
+    --text-placeholder: #89958F;
+    --text-on-dark: #F4F6F3;
+
+    /* Borders */
+    --border: #DCE5DF;
+    --border-dark: #46534D;
+
+    /* Status colours */
+    --success: #39845D;
+    --warning: #B98535;
+    --danger: #C45D57;
+
+    /* Shadows */
+    --shadow-sm:
+        0 1px 3px rgba(44, 53, 49, 0.06),
+        0 2px 5px rgba(44, 53, 49, 0.04);
+
+    --shadow-md:
+        0 8px 24px rgba(44, 53, 49, 0.09);
+
+    --shadow-lg:
+        0 16px 40px rgba(44, 53, 49, 0.14);
+
+    /* Focus */
+    --focus-ring: 0 0 0 3px rgba(17, 100, 102, 0.18);
 }
 
-/* ==========================================
-   MAIN APPLICATION
-========================================== */
+
+/* =====================================================
+   2. ANIMATIONS
+===================================================== */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseDot {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(57, 132, 93, 0.45);
+    }
+
+    50% {
+        box-shadow: 0 0 0 7px rgba(57, 132, 93, 0);
+    }
+}
 
 
+/* =====================================================
+   3. BASE STYLING
+===================================================== */
 
 .stApp,
 [data-testid="stAppViewContainer"] {
     background-color: var(--bg-main);
+
+    background-image:
+        radial-gradient(
+            900px 420px at 100% 0%,
+            rgba(17, 100, 102, 0.06),
+            transparent 60%
+        );
+
     color: var(--text-primary);
 }
 
@@ -44,79 +123,15 @@
     padding: 2.5rem 3.5rem 3rem;
 }
 
-/* Keep the dashboard sections visually separated without changing layout. */
-
-[data-testid="stAppViewContainer"] .main hr {
-    margin: 2rem 0;
-    border-color: var(--border);
-    opacity: 0.8;
-}
-
-/* ==========================================
-   SIDEBAR
-========================================== */
-
-section[data-testid="stSidebar"] {
-    background-color: var(--bg-sidebar);
-    border-right: 1px solid #526149;
-}
-
-section[data-testid="stSidebar"] > div {
-    background-color: var(--bg-sidebar);
-}
-
-section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
-    gap: 0.65rem;
-}
-
-/* Sidebar text */
-
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3,
-section[data-testid="stSidebar"] p,
-section[data-testid="stSidebar"] label,
-section[data-testid="stSidebar"] span {
-    color: #F8F3EA;
-}
-
-/* Sidebar navigation links */
-
-section[data-testid="stSidebar"] a {
-    color: #F8F3EA !important;
-    text-decoration: none;
-}
-
-section[data-testid="stSidebar"] a:hover {
-    color: var(--accent-secondary) !important;
-}
-
-section[data-testid="stSidebar"] a {
-    padding: 0.55rem 0.75rem;
-    border-radius: 7px;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-section[data-testid="stSidebar"] a:hover {
-    background-color: rgba(217, 186, 151, 0.14);
-}
-
-/* Sidebar divider */
-
-section[data-testid="stSidebar"] hr {
-    border-color: #66735D;
-}
-
-/* ==========================================
-   HEADINGS AND TEXT
-========================================== */
+/* Headings */
 
 h1, h2, h3, h4, h5 {
     color: var(--text-primary) !important;
 }
 
 h1 {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    font-weight: 700;
 }
 
 h2, h3 {
@@ -131,221 +146,687 @@ p, label {
     color: var(--text-secondary);
 }
 
-/* ==========================================
-   METRIC CARDS
-========================================== */
+/* Dividers */
 
-[data-testid="stMetric"] {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.15rem 1.25rem;
-    min-height: 7.25rem;
-    box-shadow: 0 3px 10px rgba(67, 57, 42, 0.08);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.2s ease;
+hr {
+    margin: 2rem 0;
+    border-color: var(--border) !important;
+    opacity: 1;
 }
 
-[data-testid="stMetric"]:hover {
-    border-color: var(--accent-secondary);
-    box-shadow: 0 7px 18px rgba(67, 57, 42, 0.13);
-    transform: translateY(-2px);
+
+/* =====================================================
+   4. SIDEBAR
+===================================================== */
+
+section[data-testid="stSidebar"],
+section[data-testid="stSidebar"] > div {
+    background-color: var(--bg-sidebar);
+
+    background-image:
+        radial-gradient(
+            420px 260px at 0% 0%,
+            rgba(17, 100, 102, 0.24),
+            transparent 65%
+        ),
+        linear-gradient(
+            180deg,
+            #2C3531 0%,
+            #202A26 100%
+        );
+}
+
+section[data-testid="stSidebar"] {
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+    gap: 0.35rem;
+}
+
+/* Sidebar text */
+
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] span {
+    color: var(--text-on-dark) !important;
+}
+
+/* Sidebar links */
+
+section[data-testid="stSidebar"] a {
+    color: var(--text-on-dark) !important;
+    text-decoration: none;
+    padding: 0.55rem 0.8rem;
+    border-radius: 9px;
+
+    transition:
+        background-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+section[data-testid="stSidebar"] a:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    transform: translateX(3px);
+}
+
+/* Active navigation */
+
+section[data-testid="stSidebar"] a[aria-current="page"] {
+    background: linear-gradient(
+        90deg,
+        rgba(17, 100, 102, 0.35),
+        rgba(17, 100, 102, 0.08)
+    );
+
+    box-shadow: inset 3px 0 0 var(--sand);
+}
+
+section[data-testid="stSidebar"] hr {
+    border-color: rgba(255, 255, 255, 0.09) !important;
+}
+
+
+/* =====================================================
+   5. CARDS AND METRICS
+===================================================== */
+
+[data-testid="stMetric"],
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 14px;
+
+    box-shadow: var(--shadow-sm);
+
+    animation: fadeUp 0.55s ease both;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+/* Card hover */
+
+[data-testid="stMetric"]:hover,
+[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    border-color: rgba(17, 100, 102, 0.40) !important;
+
+    box-shadow:
+        var(--shadow-md),
+        0 0 0 4px var(--accent-tint);
+
+    transform: translateY(-3px);
+}
+
+/* Metric cards */
+
+[data-testid="stMetric"] {
+    position: relative;
+    overflow: hidden;
+    padding: 1.2rem 1.3rem;
+    min-height: 7.25rem;
+}
+
+/* Top accent line */
+
+[data-testid="stMetric"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
+    opacity: 0.85;
 }
 
 [data-testid="stMetricLabel"] {
     color: var(--text-secondary) !important;
+    font-weight: 500;
 }
 
 [data-testid="stMetricValue"] {
     color: var(--text-primary) !important;
+    font-weight: 700;
 }
 
 [data-testid="stMetricDelta"] {
     color: var(--success) !important;
 }
 
-/* ==========================================
-   CONTAINERS / SERVICE CARDS
-========================================== */
+/* Service cards */
 
 [data-testid="stVerticalBlockBorderWrapper"] {
-    background: linear-gradient(145deg, #FBF7EF 0%, var(--bg-elevated) 100%) !important;
-    border-color: var(--border) !important;
-    border-radius: 12px;
     min-height: 10.5rem;
     padding: 0.25rem;
-    box-shadow: 0 4px 12px rgba(67, 57, 42, 0.09);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease,
-        transform 0.2s ease;
 }
 
+[data-testid="stVerticalBlockBorderWrapper"]
+[data-testid="stVerticalBlockBorderWrapper"],
 [data-testid="stVerticalBlockBorderWrapper"] > div,
-[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+[data-testid="stVerticalBlockBorderWrapper"]
+[data-testid="stVerticalBlock"] {
     background: transparent !important;
-    border-radius: 10px;
+    animation: none;
 }
 
-[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stVerticalBlock"] {
+[data-testid="stVerticalBlockBorderWrapper"]
+[data-testid="stVerticalBlock"] {
     padding: 0.8rem 0.9rem 0.9rem;
 }
 
-[data-testid="stVerticalBlockBorderWrapper"]:hover {
-    background: linear-gradient(145deg, #FFF9EF 0%, #F5EBDD 100%) !important;
-    border-color: var(--accent) !important;
-    box-shadow: 0 9px 22px rgba(67, 57, 42, 0.15);
-    transform: translateY(-2px);
-}
-
 [data-testid="stVerticalBlockBorderWrapper"] h3 {
-    margin-top: 0.25rem;
-    margin-bottom: 0.35rem;
-    color: var(--bg-sidebar) !important;
+    margin: 0.25rem 0 0.35rem;
+    color: var(--text-primary) !important;
 }
 
 [data-testid="stVerticalBlockBorderWrapper"] p {
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.55;
 }
 
-[data-testid="stVerticalBlockBorderWrapper"] .stPageLink {
-    margin-top: 0.75rem;
-}
 
-/* ==========================================
-   BUTTONS
-========================================== */
+/* =====================================================
+   6. BUTTONS
+===================================================== */
 
-.stButton > button {
-    background-color: var(--accent);
-    color: #FFFFFF;
-    border: 1px solid var(--accent);
-    border-radius: 8px;
+.stButton > button,
+[data-testid="stDialog"] button {
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 10px !important;
     min-height: 2.75rem;
+
     font-weight: 600;
-    box-shadow: 0 3px 8px rgba(112, 73, 42, 0.18);
-    transition: background-color 0.2s ease, border-color 0.2s ease,
-        box-shadow 0.2s ease, transform 0.2s ease;
+    letter-spacing: 0.01em;
+
+    transition:
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        color 0.25s ease;
 }
 
-.stButton > button:hover {
-    background-color: #b0825e;
-    color: #FFFFFF;
-    border-color: #A66A3C;
-    box-shadow: 0 6px 14px rgba(112, 73, 42, 0.24);
-    transform: translateY(-1px);
+/* Secondary buttons */
+
+.stButton > button[kind="secondary"],
+[data-testid="stBaseButton-secondary"] {
+    background: var(--accent-tint) !important;
+    border: 1px solid rgba(17, 100, 102, 0.30) !important;
+    backdrop-filter: blur(6px);
 }
 
-.stButton > button:focus {
-    border-color: var(--accent);
-    color: #FFFFFF;
-    box-shadow: 0 0 0 2px #B87C4C40;
+.stButton > button[kind="secondary"] *,
+[data-testid="stBaseButton-secondary"] * {
+    color: var(--accent-dark) !important;
 }
 
-/* ==========================================
-   PAGE LINKS
-========================================== */
+.stButton > button[kind="secondary"]:hover,
+[data-testid="stBaseButton-secondary"]:hover {
+    background: var(--gradient) !important;
+    border-color: transparent !important;
 
-.stPageLink a {
+    box-shadow: 0 8px 20px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+.stButton > button[kind="secondary"]:hover *,
+[data-testid="stBaseButton-secondary"]:hover * {
+    color: #FFFFFF !important;
+}
+
+/* Primary buttons */
+
+.stButton > button[kind="primary"],
+[data-testid="stBaseButton-primary"] {
+    background: var(--gradient) !important;
+    border: 1px solid transparent !important;
+    box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.stButton > button[kind="primary"] *,
+[data-testid="stBaseButton-primary"] * {
+    color: #FFFFFF !important;
+}
+
+.stButton > button[kind="primary"]:hover,
+[data-testid="stBaseButton-primary"]:hover {
+    box-shadow: 0 10px 26px var(--accent-glow);
+    transform: translateY(-2px);
+}
+
+/* Button light sweep animation */
+
+.stButton > button::after,
+[data-testid="stDialog"] button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+
+    width: 50%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+
+.stButton > button:hover::after,
+[data-testid="stDialog"] button:hover::after {
+    left: 130%;
+}
+
+/* Button active and focus */
+
+.stButton > button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.stButton > button:focus-visible {
+    box-shadow: var(--focus-ring) !important;
+    outline: none;
+}
+
+
+/* =====================================================
+   7. PAGE LINKS
+===================================================== */
+
+.stPageLink {
+    margin-top: 0.5rem;
+}
+
+[data-testid="stMain"] .stPageLink a,
+[data-testid="stAppViewContainer"] .main .stPageLink a {
     color: var(--accent) !important;
     font-weight: 600;
+
+    transition:
+        color 0.2s ease,
+        letter-spacing 0.2s ease;
 }
 
-.stPageLink a:hover {
-    color: #8F5B35 !important;
+[data-testid="stMain"] .stPageLink a:hover,
+[data-testid="stAppViewContainer"] .main .stPageLink a:hover {
+    color: var(--accent-dark) !important;
+    letter-spacing: 0.02em;
 }
 
-/* ==========================================
-   INPUT FIELDS
-========================================== */
 
+/* =====================================================
+   8. INPUTS
+   Text input, search, number input, textarea, select
+===================================================== */
+
+[data-testid="stTextInputRootElement"],
+[data-testid="stNumberInputContainer"],
+[data-testid="stTextAreaRootElement"],
+[data-baseweb="input"],
+[data-baseweb="base-input"],
+[data-baseweb="textarea"],
+[data-baseweb="select"] > div {
+    background-color: var(--bg-input) !important;
+
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+
+    box-shadow: var(--shadow-sm) !important;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Inner input containers */
+
+[data-testid="stTextInputRootElement"] [data-baseweb="base-input"],
+[data-testid="stNumberInputContainer"] [data-baseweb="base-input"],
+[data-testid="stTextInputRootElement"] [data-baseweb="input"],
+[data-testid="stNumberInputContainer"] [data-baseweb="input"],
+[data-baseweb="input"] > div,
+[data-baseweb="base-input"] > div,
+[data-baseweb="select"] > div > div {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Input text */
+
+input,
+textarea,
 .stTextInput input,
 .stNumberInput input,
 .stTextArea textarea {
-    background-color: var(--bg-card);
-    color: var(--text-primary);
-    border: 1px solid var(--border);
-    border-radius: 7px;
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+
+    -webkit-text-fill-color: var(--text-primary) !important;
+
+    caret-color: var(--accent);
+    border: none !important;
+    box-shadow: none !important;
 }
 
-.stTextInput input:focus,
-.stNumberInput input:focus,
-.stTextArea textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
+/* Autofill */
+
+input:-webkit-autofill {
+    -webkit-box-shadow:
+        0 0 0 1000px var(--bg-input) inset !important;
+
+    -webkit-text-fill-color: var(--text-primary) !important;
 }
 
-/* ==========================================
-   SELECT BOX
-========================================== */
+/* Placeholder */
 
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-placeholder) !important;
+    -webkit-text-fill-color: var(--text-placeholder) !important;
+    opacity: 1 !important;
+}
+
+/* Hover */
+
+[data-testid="stTextInputRootElement"]:hover,
+[data-testid="stNumberInputContainer"]:hover,
+[data-baseweb="select"]:hover > div {
+    border-color: #B6CBC2 !important;
+}
+
+/* Focus */
+
+[data-testid="stTextInputRootElement"]:focus-within,
+[data-testid="stNumberInputContainer"]:focus-within,
+[data-testid="stTextAreaRootElement"]:focus-within,
+[data-baseweb="select"]:focus-within > div {
+    border-color: var(--accent) !important;
+    box-shadow: var(--focus-ring) !important;
+}
+
+
+/* =====================================================
+   9. NUMBER INPUT CONTROLS
+===================================================== */
+
+[data-testid="stNumberInputContainer"] button,
+[data-testid="stNumberInputStepDown"],
+[data-testid="stNumberInputStepUp"] {
+    background-color: var(--bg-hover) !important;
+    color: var(--accent-dark) !important;
+
+    border: none !important;
+    border-left: 1px solid var(--border) !important;
+
+    border-radius: 0 !important;
+    min-height: 0;
+
+    transform: none !important;
+}
+
+[data-testid="stNumberInputContainer"] button:hover,
+[data-testid="stNumberInputStepDown"]:hover,
+[data-testid="stNumberInputStepUp"]:hover {
+    background-color: var(--accent-tint) !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stNumberInputContainer"] button *,
+[data-testid="stNumberInputContainer"] svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+[data-testid="stNumberInputContainer"] button::after {
+    display: none;
+}
+
+
+/* =====================================================
+   10. SELECTBOX AND DROPDOWN
+===================================================== */
+
+/* Selectbox container */
 [data-baseweb="select"] > div {
-    background-color: var(--bg-card);
-    border-color: var(--border);
-    color: var(--text-primary);
+    background: #F7FAF8 !important;
+    border: 1px solid #DCE5DF !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1px 3px rgba(44, 53, 49, 0.06) !important;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-/* ==========================================
-   RADIO BUTTONS
-========================================== */
-
-.stRadio label {
-    color: var(--text-primary);
+/* Selectbox text */
+[data-baseweb="select"] div,
+[data-baseweb="select"] span {
+    color: #2C3531 !important;
 }
 
-/* ==========================================
-   SUCCESS / WARNING / ERROR
-========================================== */
+/* Dropdown arrow */
+[data-baseweb="select"] svg {
+    fill: #116466 !important;
+    color: #116466 !important;
+}
+
+/* Selectbox hover */
+[data-baseweb="select"]:hover > div {
+    border-color: #B6CBC2 !important;
+}
+
+/* Selectbox focus */
+[data-baseweb="select"]:focus-within > div {
+    border-color: #116466 !important;
+    box-shadow: 0 0 0 3px rgba(17, 100, 102, 0.18) !important;
+}
+
+/* Dropdown popup */
+[data-baseweb="popover"],
+[data-baseweb="popover"] > div,
+[data-baseweb="menu"] {
+    background: #FFFFFF !important;
+    border-radius: 10px !important;
+}
+
+/* Dropdown options */
+[data-baseweb="menu"] [role="option"] {
+    background: transparent !important;
+    color: #2C3531 !important;
+    transition: background-color 0.15s ease;
+}
+
+/* Dropdown hover and selected option */
+[data-baseweb="menu"] [role="option"]:hover,
+[data-baseweb="menu"] [aria-selected="true"] {
+    background: #D1E9E2 !important;
+}
+
+
+/* =====================================================
+   11. ALERTS
+===================================================== */
 
 [data-testid="stAlert"] {
-    border-radius: 8px;
-    box-shadow: 0 3px 9px rgba(67, 57, 42, 0.08);
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeUp 0.4s ease both;
 }
 
 [data-testid="stAlert"][kind="success"] {
-    background-color: #E2EBDD;
+    background-color: #E8F3EC;
     border-color: var(--success);
 }
 
 [data-testid="stAlert"][kind="warning"] {
-    background-color: #F5EBD3;
+    background-color: #FFF3E4;
     border-color: var(--warning);
 }
 
 [data-testid="stAlert"][kind="error"] {
-    background-color: #F3DFD8;
+    background-color: #FBE8E5;
     border-color: var(--danger);
 }
 
-/* ==========================================
-   TABLES
-========================================== */
+[data-testid="stAlert"][kind="info"] {
+    background-color: #E5F1ED;
+    border-color: var(--accent);
+}
+
+
+/* =====================================================
+   12. DATAFRAME / TABLE
+===================================================== */
 
 [data-testid="stDataFrame"] {
+    background-color: var(--bg-card) !important;
+
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 12px;
+
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
+
+    animation: fadeUp 0.55s ease both;
 }
 
-/* ==========================================
-   DIVIDERS
-========================================== */
 
-hr {
-    border-color: var(--border);
+
+/* =====================================================
+   13. DIALOG / MODAL
+===================================================== */
+
+/* Dialog background */
+[data-testid="stDialog"] [role="dialog"] {
+    background: #FFFFFF !important;
+    color: #2C3531 !important;
+    border: 1px solid #DCE5DF !important;
 }
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
+/* Dialog headings and labels */
+[data-testid="stDialog"] h2,
+[data-testid="stDialog"] label,
+[data-testid="stDialog"] p,
+[data-testid="stDialog"] [data-testid="stWidgetLabel"] {
+    color: #2C3531 !important;
+}
+
+/* Text and number inputs */
+[data-testid="stDialog"] input {
+    background: #F7FAF8 !important;
+    color: #2C3531 !important;
+    -webkit-text-fill-color: #2C3531 !important;
+}
+
+/* Placeholder */
+[data-testid="stDialog"] input::placeholder {
+    color: #89958F !important;
+    -webkit-text-fill-color: #89958F !important;
+    opacity: 1 !important;
+}
+
+/* Instance Type and Key Pair selectboxes */
+[data-testid="stDialog"] [data-baseweb="select"] > div {
+    background: #F7FAF8 !important;
+    border-color: #DCE5DF !important;
+}
+
+[data-testid="stDialog"] [data-baseweb="select"] span,
+[data-testid="stDialog"] [data-baseweb="select"] div {
+    color: #2C3531 !important;
+}
+
+/* Dropdown arrows */
+[data-testid="stDialog"] [data-baseweb="select"] svg {
+    color: #116466 !important;
+    fill: #116466 !important;
+}
+
+/* Dropdown popup */
+[data-baseweb="popover"],
+[data-baseweb="menu"] {
+    background: #FFFFFF !important;
+}
+
+[data-baseweb="menu"] [role="option"] {
+    color: #2C3531 !important;
+}
+
+[data-baseweb="menu"] [role="option"]:hover,
+[data-baseweb="menu"] [aria-selected="true"] {
+    background: #D1E9E2 !important;
+}
+
+/* Dialog divider */
+[data-testid="stDialog"] hr {
+    border-color: #DCE5DF !important;
+}
+
+/* Primary button */
+[data-testid="stDialog"] [data-testid="stBaseButton-primary"] {
+    background: #116466 !important;
+    color: #FFFFFF !important;
+}
+
+/* Secondary button */
+[data-testid="stDialog"] [data-testid="stBaseButton-secondary"] {
+    background: #D1E9E2 !important;
+    color: #2C3531 !important;
+    border: 1px solid #C0DAD1 !important;
+}
+
+/* Close button - top right corner */
+[data-testid="stDialog"] button[aria-label="Close"] {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    color: #63716B !important;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: 10 !important;
+}
+
+[data-testid="stDialog"] button[aria-label="Close"]:hover {
+    background: #D1E9E2 !important;
+    color: #116466 !important;
+}
+
+[data-testid="stDialog"] button[aria-label="Close"] svg {
+    color: inherit !important;
+    fill: currentColor !important;
+}
+
+
+
+/* =====================================================
+   14. RESPONSIVE DESIGN
+===================================================== */
 
 @media (max-width: 768px) {
+
     [data-testid="stAppViewContainer"] .main .block-container {
         padding: 1.5rem 1rem 2rem;
     }
 
     [data-testid="stMetric"] {
         min-height: auto;
-        padding: 0.85rem;
+        padding: 0.9rem;
     }
 
     [data-testid="stVerticalBlockBorderWrapper"] {
@@ -354,83 +835,20 @@ hr {
 }
 
 
+/* =====================================================
+   15. REDUCED MOTION
+===================================================== */
 
+@media (prefers-reduced-motion: reduce) {
 
-
-
-
-/* =================================
-   EC2 TABLE
-================================= */
-
-/* Table background */
-[data-testid="stDataFrame"] {
-    background-color: #FFFCF5 !important;
-    border: 1px solid #DED6C7;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-/* Table text */
-[data-testid="stDataFrame"] [data-testid="glideDataEditor"] {
-    color: #302F29 !important;
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 
-/* =================================
-   SELECTBOX
-================================= */
-
-/* Selectbox container */
-[data-baseweb="select"] > div {
-    background-color: #FFFCF5 !important;
-    border-color: #DED6C7 !important;
-}
-
-/* Selected value */
-[data-baseweb="select"] div,
-[data-baseweb="select"] span {
-    color: #302F29 !important;
-}
-
-/* Dropdown menu */
-[data-baseweb="popover"] {
-    background-color: #FFFCF5 !important;
-}
-
-[data-baseweb="menu"] {
-    background-color: #FFFCF5 !important;
-}
-
-/* Dropdown options */
-[data-baseweb="menu"] [role="option"] {
-    color: #302F29 !important;
-}
-
-[data-baseweb="menu"] [role="option"]:hover {
-    background-color: #E8E2D5 !important;
-}
-
-
-/* =================================
-   SEARCH INPUT
-================================= */
-
-/* Search input background */
-.stTextInput input {
-    background-color: #FFFCF5 !important;
-    color: #302F29 !important;
-    border: 1px solid #DED6C7 !important;
-}
-
-/* Placeholder text */
-.stTextInput input::placeholder {
-    color: #999487 !important;
-    opacity: 1 !important;
-}
-
-/* Search input focus */
-.stTextInput input:focus {
-    border-color: #A96F4F !important;
-    box-shadow: 0 0 0 1px #A96F4F !important;
+[data-testid="stDialog"] [data-baseweb="select"] > div {
+    background: #F7FAF8 !important;
+    border-color: #DCE5DF !important;
 }

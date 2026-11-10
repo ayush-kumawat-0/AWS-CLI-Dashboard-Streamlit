@@ -110,13 +110,13 @@ st.subheader("Quick Actions")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    if st.button("List EC2 Instances", use_container_width=True):
+    if st.button("List EC2 Instances", width="stretch"):
         st.switch_page("pages/2_EC2.py")
 
 with col2:
-    if st.button("List S3 Buckets", use_container_width=True):
+    if st.button("List S3 Buckets", width="stretch"):
         st.switch_page("pages/3_S3.py")
 
 with col3:
-    if st.button("List IAM Users", use_container_width=True):
+    if st.button("List IAM Users", width="stretch"):
         st.switch_page("pages/4_IAM.py")

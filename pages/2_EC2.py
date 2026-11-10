@@ -1,5 +1,6 @@
 import streamlit as st
 from components.sidebar import sidebar_fun 
+from pages.EC2.ec2_launch import launch_instance
 
 st.set_page_config(
     page_title = "EC2 Management",
@@ -15,11 +16,11 @@ sidebar_fun()
 col1 , col2 = st.columns([4,1])
 
 with col1:
-    st.title("EC2 Management")
+    st.title("🖥️ EC2 Management")
     st.caption("Manage and monitor your Amazon EC2 infrastructure.")
 
-with col2:
-    st.button("🔄 Refresh", use_container_width=True)
+# with col2:
+    # st.button("🔄 Refresh", width="stretch")
 
 
 st.divider()
@@ -52,15 +53,15 @@ st.subheader("Instance Overview")
 # col1 , col2 ,  col3 = st.columns(3)
 
 # with col1:
-#     if st.button("📋 View All Instances", use_container_width=True):
+#     if st.button("📋 View All Instances", width="stretch"):
 #         st.switch_page("pages/EC2/ec2_instance_details.py")
 
 # with col2:
-#     if st.button("➕ Launch Instance", use_container_width=True):
+#     if st.button("➕ Launch Instance", width="stretch"):
 #         st.switch_page("pages/EC2/ec2_instance_details.py")
 
 # with col3:
-#     if st.button("🔐 Security Groups", use_container_width=True):
+#     if st.button("🔐 Security Groups", width="stretch"):
 #         st.switch_page("pages/EC2/ec2_instance_details.py")
 
 
@@ -91,13 +92,13 @@ with col1:
     search = st.text_input("Search Instance",placeholder="Search by name or instance ID...",type="search")
 
 with col2:
-    if st.button("➕ Launch Instance", use_container_width=True):
-        st.switch_page("pages/EC2/ec2_instance_details.py")
+    if st.button("➕ Launch Instance", width="stretch"):
+        launch_instance()
 
-if not search:
-    filtered_instances = instances
-else:
-    filtered_instances = []
+# if not search:
+#     filtered_instances = instances
+# else:
+filtered_instances = []
 
 for instance in instances:
     if search.lower() in instance["Name"].lower() or search.lower() in instance["Instance ID"].lower():
@@ -107,7 +108,7 @@ for instance in instances:
 
 st.dataframe(
     filtered_instances,
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
 )
 
@@ -123,11 +124,11 @@ with col1:
     selected_Instance = st.selectbox(label="Select an Instance",options=["1","2"])
 
 with col2:
-    if st.button("▶️Start", use_container_width=True):
+    if st.button("▶️Start", width="stretch"):
         st.info("Not yet started")
-    if st.button("⏹️Stop", use_container_width=True):
+    if st.button("⏹️Stop", width="stretch"):
         st.info("Not yet started")
-    if st.button("🔄Reboot", use_container_width=True):
+    if st.button("🔄Reboot", width="stretch"):
         st.info("Not yet started")
-    if st.button("🗑️Terminate", use_container_width=True):
+    if st.button("🗑️Terminate", width="stretch"):
         st.info("Not yet started")
