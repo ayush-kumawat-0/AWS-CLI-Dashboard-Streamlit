@@ -1,11 +1,17 @@
 import streamlit as st
+import subprocess
+import json
 
 with open("assets/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+    
+
+
+
 @st.dialog("Launch Instance", width="medium")
-def launch_instance():
-    name = st.text_input("Instance Name", placeholder="Enter instance name")
+def launch_instance_dialog():
+    instance_name = st.text_input("Instance Name", placeholder="Enter instance name")
 
     col1, col2 = st.columns(2)
     with col1:        
@@ -32,8 +38,11 @@ def launch_instance():
         st.rerun()
 
     if launch:
-        #launch logic
-        st.success(f"Launching {num_instances} instance(s) of type {instance_type} with name '{name}' and AMI ID '{ami_id}'")
+        launch_instance_logic(instance_name,ami_id,instance_type,key_pair,num_instances)
+        st.success(f"Launching {num_instances} instance(s) of type {instance_type} with name '{instance_name}' and AMI ID '{ami_id}'")
 
     else:
         st.info("Fill in the details and click 'Launch Instance' to proceed.")
+
+
+

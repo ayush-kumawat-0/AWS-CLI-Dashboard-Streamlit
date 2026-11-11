@@ -852,3 +852,22 @@ textarea::placeholder {
     background: #F7FAF8 !important;
     border-color: #DCE5DF !important;
 }
+
+/* Main EC2 page selectbox */
+[data-testid="stMain"] [data-testid="stSelectbox"] [data-baseweb="select"] > div {
+    background: #F7FAF8 !important;
+    background-color: #F7FAF8 !important;
+    border-color: #DCE5DF !important;
+}
+
+/* Selectbox text */
+[data-testid="stMain"] [data-testid="stSelectbox"] [data-baseweb="select"] span {
+    color: #2C3531 !important;
+    -webkit-text-fill-color: #2C3531 !important;
+}
+
+/* Dropdown icon */
+[data-testid="stMain"] [data-testid="stSelectbox"] [data-baseweb="select"] svg {
+    color: #116466 !important;
+    fill: #116466 !important;
+}
