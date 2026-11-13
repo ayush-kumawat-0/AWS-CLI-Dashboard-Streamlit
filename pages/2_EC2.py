@@ -3,7 +3,8 @@ import subprocess
 import json
 import pandas as pd
 from components.sidebar import sidebar_fun 
-from services.ec2 import start_instance,stop_instance,reboot_instance,terminate_instance,launch_instance
+from pages.EC2.ec2_launch import launch_instance_dialog
+from services.ec2 import start_instance,stop_instance,reboot_instance,terminate_instance
 from pages.EC2.ec2_instances import list_instances
 from pages.EC2.ec2_instance_details import full_instance_detail
 
@@ -20,7 +21,7 @@ sidebar_fun()
 
 
 
-col1 , col2 = st.columns([4,1])
+col1 , col2 = st.columns([4,1],vertical_alignment="bottom")
 
 with col1:
     st.title("🖥️ EC2 Management")
@@ -33,22 +34,40 @@ with col2:
 
 st.divider()
 
+instances = json.loads(list_instances())
+
+total_instances = len(instances)
+
+running_instances = sum(
+    1 for instance in instances
+    if instance["State"] == "running"
+)
+
+stopped_instances = sum(
+    1 for instance in instances
+    if instance["State"] == "stopped"
+)
+
+terminated_instances = sum(
+    1 for instance in instances
+    if instance["State"] == "terminated"
+)
+
 st.subheader("Resource Overview")
 
-col1 , col2 , col3 , col4 = st.columns(4)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric("Total instance", "12","+2")
+    st.metric("Total Instances", total_instances)
 
 with col2:
-    st.metric("Running", "8","+1")
+    st.metric("Running", running_instances)
 
 with col3:
-    st.metric("Stopped", "3","-2")
+    st.metric("Stopped", stopped_instances)
 
 with col4:
-    st.metric("Terminated", "1")
-
+    st.metric("Terminated", terminated_instances)
 
 st.divider()
 
@@ -64,11 +83,11 @@ with col1:
 
 with col2:
     if st.button("➕ Launch Instance", width="stretch"):
-        launch_instance()
+        launch_instance_dialog()
 
 
 
-filtered_instances = json.loads(list_instances())
+filtered_instances = instances.copy()
 
 if search:
     filtered_instances = [
@@ -78,50 +97,49 @@ if search:
     ]
 
 
-st.dataframe(
+event = st.dataframe(
     filtered_instances,
     width="stretch",
     hide_index=True,
+    on_select="rerun",
+    selection_mode="single-row",
+    key="instance_table",
 )
-
-
-
 
 st.subheader("Instance Actions")
 
+selected_rows = event.selection.rows
 
-col1,col2 = st.columns([4,1],vertical_alignment="top")
+if not selected_rows:
+    st.info("Click a row in the table above to select an instance.")
+else:
+    selected_Instance = filtered_instances[selected_rows[0]]
+    name = selected_Instance.get("Name") or "Unnamed"
+    instance_id = selected_Instance["Instance ID"]
 
-with col1:
-    selected_Instance = st.selectbox(label="Select an Instance",options=filtered_instances,format_func=lambda x: f"{x.get('Name') or 'Unamed'} ({x['Instance ID']}) - {x['State']}")
+    col1, col2 = st.columns([4, 1], vertical_alignment="center")
 
-    display_instance = full_instance_detail(selected_Instance["Instance ID"])
+    with col1:
+        st.markdown(f"**Selected:** {name} ({instance_id}) · {selected_Instance['State']}")
 
-    if display_instance:
-        df = pd.DataFrame(
-            display_instance.items(),
-            columns=["Property", "Value"]
-        )
+        display_instance = full_instance_detail(instance_id)
+        if display_instance:
+            df = pd.DataFrame(display_instance.items(), columns=["Property", "Value"])
+            st.dataframe(df, width="stretch", hide_index=True)
 
-    st.dataframe(
-        df,
-        width="stretch",
-        hide_index=True
-    )
+    with col2:
+        if st.button("▶️ Start", width="stretch"):
+            start_instance(instance_id)
+            st.toast(f"Instance {name} started successfully!", icon="✅")
 
-with col2:
-    if st.button("▶️ Start", width="stretch"):
-        start_instance(selected_Instance["Instance ID"])
-        st.toast(f"Instance {selected_Instance.get('Name') or 'Unnamed'} started successfully!", icon="✅")
+        if st.button("⏹️ Stop", width="stretch"):
+            stop_instance(instance_id)
+            st.toast(f"Instance {name} stopped successfully!", icon="✅")
 
-    if st.button("⏹️ Stop", width="stretch"):
-        stop_instance(selected_Instance["Instance ID"])
-        st.toast(f"Instance {selected_Instance.get('Name') or 'Unnamed'} stopped successfully!", icon="✅")
+        if st.button("🔄 Reboot", width="stretch"):
+            reboot_instance(instance_id)
+            st.toast(f"Instance {name} reboot request sent!", icon="🔄")
 
-    if st.button("🔄 Reboot", width="stretch"):
-        reboot_instance(selected_Instance["Instance ID"])
-        st.toast(f"Instance {selected_Instance.get('Name') or 'Unnamed'} reboot request sent!", icon="🔄")
-
-    if st.button("🗑️ Terminate", width="stretch"):
-        terminate_instance(selected_Instance["Instance ID"])
-        st.toast(f"Instance {selected_Instance.get('Name') or 'Unnamed'} termination request sent!", icon="⚠️")
+        if st.button("🗑️ Terminate", width="stretch"):
+            terminate_instance(instance_id)
+            st.toast(f"Instance {name} termination request sent!", icon="⚠️")

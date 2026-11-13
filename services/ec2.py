@@ -1,6 +1,6 @@
 # This is the EC2 code
 import subprocess
-
+import json
 
 
 
@@ -43,37 +43,63 @@ def reboot_instance(instance_id):
         return result.stderr
 
 
-def launch_instance():
-
-    clear_screen()
-
-    print(f"\n{CYAN}{BOLD}============================")
-    print("       LAUNCH INSTANCE")
-    print(f"============================{RESET}\n")
-
-    ami_id = input(f"{BLUE}AMI ID: {RESET}").strip()
-    instance_type = input(f"{BLUE}Instance type: {RESET}").strip()
-
-    print(f"\n{YELLOW}Launching EC2 instance...{RESET}\n")
-
+def get_key_pairs():
     result = subprocess.run(
         [
-            "aws", "ec2", "run-instances",
-            "--image-id", ami_id,
-            "--instance-type", instance_type,"--output", "table"
+            "aws", "ec2", "describe-key-pairs",
+            "--query", "KeyPairs[].KeyName",
+            "--output", "json"
         ],
         capture_output=True,
         text=True
     )
 
     if result.returncode == 0:
-        print(f"{WHITE}{result.stdout}{RESET}")
-        print(f"\n{GREEN}{BOLD}✓ Instance launch request successful.{RESET}")
-    else:
-        print(f"\n{RED}AWS CLI Error:")
-        print(f"{result.stderr}{RESET}")
+        return json.loads(result.stdout)
 
-    pause_and_clear()
+    return []
+
+
+def create_key_pair(key_name):
+    result = subprocess.run(
+        [
+            "aws", "ec2", "create-key-pair",
+            "--key-name", key_name,
+            "--query", "KeyMaterial",
+            "--output", "text"
+        ],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode == 0:
+        return True, result.stdout
+
+    return False, result.stderr
+
+
+def launch_instance_logic(instance_name, ami_id, instance_type, key_pair, num_instances):
+
+    result = subprocess.run(
+        [
+            "aws", "ec2", "run-instances",
+            "--image-id", ami_id,
+            "--instance-type", instance_type,
+            "--key-name", key_pair,
+            "--count", str(num_instances),
+            "--tag-specifications",
+            f"ResourceType=instance,Tags=[{{Key=Name,Value={instance_name}}}]",
+            "--output", "json"
+        ],
+        capture_output=True,
+        text=True
+    )
+
+    if result.returncode == 0:
+        return True, json.loads(result.stdout)
+
+    return False, result.stderr
+
 
 
 def terminate_instance(instance_id):
