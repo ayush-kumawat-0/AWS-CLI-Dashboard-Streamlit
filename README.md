@@ -1,123 +1,106 @@
  <div align="center">
 
-# ☁️ AWS Automation Dashboard
+# ☁️ AWS Cloud Management Dashboard
 
-**Manage AWS resources through a Python-powered CLI dashboard.**
+### Manage your AWS infrastructure through a simple, interactive web interface.
 
-<img src="https://img.shields.io/badge/Python-3.x-blue?style=for-the-badge&logo=python&logoColor=white" />
-<img src="https://img.shields.io/badge/AWS-CLI-orange?style=for-the-badge&logo=amazonaws&logoColor=white" />
-<img src="https://img.shields.io/badge/Interface-CLI-black?style=for-the-badge&logo=windows-terminal&logoColor=white" />
+<p>
+  <img src="https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/AWS-CLI-orange?logo=amazonaws&logoColor=white" />
+  <img src="https://img.shields.io/badge/Streamlit-Web%20App-red?logo=streamlit&logoColor=white" />
+  <img src="https://img.shields.io/badge/Status-Active-success" />
+</p>
 
 </div>
 
 ---
 
-## 📌 About the Project
+## 🚀 About the Project
 
-AWS Automation Dashboard is a menu-driven Python application designed to simplify AWS resource management using the AWS CLI.
+AWS Cloud Management Dashboard is a Python-based web application built with **Streamlit** that allows users to manage and monitor AWS resources through a graphical interface.
 
-It uses Python's `subprocess` module to execute AWS CLI commands, collect user input, handle command responses, and display results directly in the terminal.
+Instead of manually executing AWS CLI commands in the terminal, users can perform common cloud management operations directly from the dashboard.
 
-**Technology:** Python + AWS CLI (No Boto3).
+The application uses **AWS CLI through Python's subprocess module** to communicate with AWS services.
 
 ## ✨ Features
 
-| AWS Service | Operations |
+| Service | Capabilities |
 |---|---|
-| 🖥️ **EC2** | List, Launch, Start, Stop, Reboot and Terminate Instances |
-| 🪣 **S3** | List, Create and Delete Buckets; List, Upload and Delete Objects |
-| 🔐 **IAM** | List, Create and Delete Users; List and Create Roles; Attach and Detach Policies |
-| ⚡ **Lambda** | List, Get, Create and Delete Functions |
-| 🌐 **API Gateway** | API Gateway management through the dedicated service module |
+| 🖥️ **EC2** | Launch, view, start, stop, reboot and terminate instances |
+| 🪣 **S3** | Create, view and manage S3 buckets and objects |
+| 🔐 **IAM** | Manage IAM users, roles and policies |
+| ⚡ **Lambda** | Manage Lambda functions |
+| 🌐 **API Gateway** | Access API Gateway management features |
+| 👤 **Account** | View AWS account information |
 
 ## ⚙️ How It Works
 
 <div align="center">
 
-```text
-          User Input
-              │
-              ▼
-       Python Dashboard
-              │
-              ▼
-       subprocess.run()
-              │
-              ▼
-            AWS CLI
-              │
-              ▼
-         AWS Services
-       ┌──────┼───────┐
-       ▼      ▼       ▼
-      EC2     S3      IAM
-                      │
-                 Lambda / API
-                   Gateway
-```
+**Streamlit Dashboard**
+
+⬇️
+
+**Python Service Layer**
+
+⬇️
+
+**AWS CLI Commands**
+
+⬇️
+
+**AWS Cloud Services**
 
 </div>
 
-## 🗂️ Project Structure
+The dashboard executes AWS CLI commands using Python, processes the returned JSON responses, and displays the results in the web interface.
 
-```text
-AWS-CLI-Python-Dashboard/
-│
-├── core/
-│   ├── __pycache__/
-│   └── aws_cli.py
-│
-├── services/
-│   ├── __pycache__/
-│   ├── __init__.py
-│   ├── apigateway.py
-│   ├── ec2.py
-│   ├── iam.py
-│   ├── lambda_service.py
-│   ├── modified_ec2.py
-│   └── s3.py
-│
-├── main.py
-├── README.md
-└── requirements.txt
-```
+## 🛠️ Tech Stack
 
-## 🚀 Getting Started
+- **Python** – Application logic and AWS command execution
+- **Streamlit** – Interactive web interface
+- **AWS CLI** – Communication with AWS services
+- **Pandas** – Data handling and tabular display
+- **JSON** – Processing AWS responses
+- **CSS** – Dashboard styling
+
+## 📥 Getting Started
 
 ### 1. Prerequisites
 
-- Python 3.x
-- AWS CLI
-- AWS account
-- Appropriate IAM permissions
+Make sure you have:
 
-Check installation:
-
-```bash
-python --version
-aws --version
-```
+- Python 3 installed
+- AWS CLI installed
+- An AWS account
+- AWS credentials configured
 
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-
-cd AWS-CLI-Python-Dashboard
+git clone https://github.com/ayush-kumawat-0/AWS-CLI-Dashboard-Streamlit
 ```
 
-### 3. Configure AWS CLI
+```bash
+cd your-repository
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure AWS CLI
+
+Run the following command:
 
 ```bash
 aws configure
 ```
 
-Enter your:
-
-- AWS Access Key ID
-- AWS Secret Access Key
-- Default region
-- Default output format
+Provide your AWS Access Key, Secret Access Key, preferred region, and output format.
 
 Verify your AWS connection:
 
@@ -125,31 +108,41 @@ Verify your AWS connection:
 aws sts get-caller-identity
 ```
 
-### 4. Run the Dashboard
+### 5. Run the Dashboard
 
 ```bash
-python main.py
+streamlit run app.py
 ```
 
-## 🖥️ Usage
+The application will open in your browser, usually at:
 
-1. Run `main.py` to launch the dashboard.
-2. Select an AWS service from the main menu.
-3. Choose the required operation.
-4. Enter the requested resource details.
-5. View the command output or error directly in the terminal.
+```text
+http://localhost:8501
+```
 
-## ⚠️ Important
+## 🖱️ How to Use
 
-- Every user must configure their own AWS credentials.
-- AWS credentials are not included in this repository.
-- Required IAM permissions depend on the selected operation.
-- Some AWS operations may create billable resources or permanently delete existing resources.
+1. **Open the dashboard** using the Streamlit URL.
+2. **Select an AWS service** from the sidebar.
+3. **View your resources** and their current details.
+4. **Choose an operation**, such as launching an EC2 instance or creating an S3 bucket.
+5. **Enter the required information** and execute the operation.
+6. **Check the response** displayed by the dashboard.
+
+## ⚠️ Important Notes
+
+- Configure AWS CLI credentials before using the dashboard.
+- Ensure your IAM identity has the required permissions for each operation.
+- AWS resources are region-specific. Select the correct AWS region.
+- Some operations may incur AWS charges.
+- Never upload AWS credentials, private keys, or `.pem` files to GitHub.
 
 ---
 
 <div align="center">
 
-**Built with Python 🐍 | Powered by AWS ☁️**
+### ☁️ Built to simplify AWS resource management.
+
+**Python • Streamlit • AWS CLI**
 
 </div>
